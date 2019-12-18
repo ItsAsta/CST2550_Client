@@ -3,14 +3,16 @@ package sample;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import scenes.BaseScene;
-import scenes.MainScene;
+import scenes.PrimaryScene;
+
+import java.io.FileNotFoundException;
 
 
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage){
-        BaseScene mainScene = new MainScene("yooo", 960, 540);
+    public void start(Stage primaryStage) throws FileNotFoundException {
+        BaseScene mainScene = new PrimaryScene("PT Booking");
 
         mainScene.setScene();
     }

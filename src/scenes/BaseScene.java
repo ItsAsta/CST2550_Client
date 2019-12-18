@@ -1,32 +1,49 @@
 package scenes;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import sample.Main;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 
 public abstract class BaseScene extends Stage {
 
     private String title;
-    private int w;
-    private int h;
 
-    public BaseScene(String title, int w, int h) {
+    public BaseScene(String title) {
         this.title = title;
-        this.w = w;
-        this.h = h;
     }
 
     public void setScene() {
-        GridPane gridPane = new GridPane();
-        Scene scene = new Scene(gridPane, w, h);
-        fillScene(gridPane, title);
+        BorderPane pane = new BorderPane();
+
+        Label heading = new Label(title);
+        heading.setId("heading");
+
+        BorderPane.setAlignment(heading, Pos.CENTER);
+        BorderPane.setMargin(heading, new Insets(10));
+        pane.setTop(heading);
+        pane.setPadding(new Insets(10));
+
+        setTitle(title);
+        Scene scene = new Scene(pane, 960, 540);
+        scene.getStylesheets().add("./resources/stylesheets/stylesheet.css");
+        fillScene(pane);
         setScene(scene);
+        pane.requestFocus();
         show();
     }
 
-    public abstract void fillScene(Pane pane, String title);
+    public abstract void fillScene(BorderPane pane);
+
 }

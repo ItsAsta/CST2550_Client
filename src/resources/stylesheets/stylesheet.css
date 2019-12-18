@@ -1,3 +1,33 @@
+@font-face {
+    font-family: 'Dense';
+    src: url('../fonts/Dense-Regular.otf');
+}
+
 .root {
-    -fx-background-color: aqua;
+    -fx-background-color: #2a2d36;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-dark-text-color: white;
+    -fx-mid-text-color: white;
+    -fx-light-text-color: black;
+}
+
+.label {
+    -fx-font-family: 'Roboto';
+    -fx-font-size: 14px;
+}
+
+.mainButtons {
+    -fx-background-color: transparent;
+    -fx-border-color: #ffffff;
+}
+
+.mainButtons:hover {
+    -fx-background-color: #313849;
+    -fx-cursor: hand;
+}
+
+#heading {
+    -fx-font-family: 'Dense';
+    -fx-font-size: 38px;
 }
