@@ -38,6 +38,7 @@ public class PrimaryScene extends BaseScene {
             BaseScene memberLoginScene = new MemberLoginScene("Member Login");
 
             memberLoginScene.setScene();
+            hide();
         });
 
         memberBtn.setPrefWidth(200);

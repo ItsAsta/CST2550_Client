@@ -11,13 +11,14 @@ public class MemberLoginScene extends BaseScene {
 
     @Override
     public void fillScene(BorderPane pane) {
-        Button button = new Button(getTitle());
+        Button button = new Button("hehe");
 
         pane.setCenter(button);
 
         button.setOnAction(e -> {
             BaseScene primaryScene = new PrimaryScene("Primary Scene");
             primaryScene.setScene();
+            hide();
         });
     }
 }

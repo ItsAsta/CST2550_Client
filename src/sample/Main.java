@@ -5,13 +5,12 @@ import javafx.stage.Stage;
 import scenes.BaseScene;
 import scenes.PrimaryScene;
 
-import java.io.FileNotFoundException;
-
 
 public class Main extends Application {
 
+
     @Override
-    public void start(Stage primaryStage) throws FileNotFoundException {
+    public void start(Stage primaryStage) {
         BaseScene mainScene = new PrimaryScene("PT Booking");
 
         mainScene.setScene();
