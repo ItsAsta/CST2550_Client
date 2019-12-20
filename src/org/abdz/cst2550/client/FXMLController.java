@@ -1,6 +1,5 @@
-package sample;
+package org.abdz.cst2550.client;
 
-import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 

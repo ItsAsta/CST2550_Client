@@ -1,4 +1,4 @@
-package scenes;
+package org.abdz.scenes;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -30,7 +30,7 @@ public abstract class BaseScene extends Stage {
 
 
         Scene scene = new Scene(pane, 960, 540);
-        scene.getStylesheets().add("./resources/stylesheets/stylesheet.css");
+        scene.getStylesheets().add("./org/abdz/resources/stylesheets/stylesheet.css");
 
         fillScene(pane);
         setTitle(title);

@@ -17,6 +17,15 @@
     -fx-font-size: 14px;
 }
 
+.text-field {
+    -fx-border-color: #ffffff;
+    -fx-background-color: transparent;
+    -fx-dark-text-color: white;
+    -fx-mid-text-color: white;
+    -fx-light-text-color: black;
+    -fx-border-radius: 5px;
+}
+
 .button {
     -fx-border-color: #ffffff;
     -fx-background-color: transparent;
@@ -31,14 +40,15 @@
     -fx-cursor: hand;
 }
 
-.mainButtons {
+.main-buttons {
     -fx-background-color: transparent;
     -fx-border-color: #ffffff;
 }
 
-.mainButtons:hover {
+.main-buttons:hover {
     -fx-background-color: #313849;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, black, 15, 0, 0, 0);
 }
 
 #heading {

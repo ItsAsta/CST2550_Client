@@ -1,11 +1,8 @@
-package scenes;
+package org.abdz.scenes;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -13,6 +10,8 @@ public class PrimaryScene extends BaseScene {
     public PrimaryScene(String title) {
         super(title);
     }
+
+    private API api = new API();
 
     @Override
     public void fillScene(BorderPane pane) {
@@ -28,11 +27,11 @@ public class PrimaryScene extends BaseScene {
         pane.setCenter(centerVBox);
 
         Button memberBtn = new Button("Member");
-        memberBtn.getStyleClass().add("mainButtons");
+        memberBtn.getStyleClass().add("main-buttons");
         Button staffBtn = new Button("Staff");
-        staffBtn.getStyleClass().add("mainButtons");
+        staffBtn.getStyleClass().add("main-buttons");
         Button registerBtn = new Button("Register");
-        registerBtn.getStyleClass().add("mainButtons");
+        registerBtn.getStyleClass().add("main-buttons");
 
         memberBtn.setOnAction(e -> {
             BaseScene memberLoginScene = new MemberLoginScene("Member Login");
