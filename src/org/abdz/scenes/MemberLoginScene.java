@@ -6,17 +6,18 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import org.abdz.utils.SceneUtils;
 
 public class MemberLoginScene extends BaseScene {
     public MemberLoginScene(String title) {
         super(title);
     }
 
-    private API api = new API();
+    private SceneUtils sceneUtils = new SceneUtils();
 
     @Override
     public void fillScene(BorderPane pane) {
-        VBox center = api.getCenterVBox(pane, 20, 400, 400);
+        VBox center = sceneUtils.getCenterVBox(pane, 20, 400, 400);
 
         TextField usernameField = new TextField();
         usernameField.setPromptText("USERNAME");

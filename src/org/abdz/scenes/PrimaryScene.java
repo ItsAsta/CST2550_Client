@@ -5,46 +5,46 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import org.abdz.events.DateTimePicker;
+import org.abdz.utils.SceneUtils;
 
 public class PrimaryScene extends BaseScene {
     public PrimaryScene(String title) {
         super(title);
     }
 
-    private API api = new API();
+    private SceneUtils sceneUtils = new SceneUtils();
 
     @Override
     public void fillScene(BorderPane pane) {
-        VBox centerVBox = new VBox(20);
-        StackPane leftPane = new StackPane();
-        StackPane rightPane = new StackPane();
-
-        leftPane.setPrefWidth(400);
-        rightPane.setPrefWidth(400);
-
-        pane.setLeft(leftPane);
-        pane.setRight(rightPane);
+        VBox centerVBox = sceneUtils.getCenterVBox(pane, 20, 400, 400);
         pane.setCenter(centerVBox);
 
-        Button memberBtn = new Button("Member");
-        memberBtn.getStyleClass().add("main-buttons");
-        Button staffBtn = new Button("Staff");
-        staffBtn.getStyleClass().add("main-buttons");
-        Button registerBtn = new Button("Register");
-        registerBtn.getStyleClass().add("main-buttons");
+        Button bookingsBtn = new Button("Bookings");
+        bookingsBtn.getStyleClass().add("main-buttons");
+        bookingsBtn.setPrefWidth(200);
 
-        memberBtn.setOnAction(e -> {
-            BaseScene memberLoginScene = new MemberLoginScene("Member Login");
+        Button bookingMGMTBtn = new Button("Booking Management");
+        bookingMGMTBtn.getStyleClass().add("main-buttons");
+        bookingMGMTBtn.setPrefWidth(200);
 
-            memberLoginScene.setScene();
+        bookingsBtn.setOnAction(e -> {
+            BaseScene bookingScene = new BookingScene("Bookings");
+
+            bookingScene.setScene();
             hide();
+
         });
 
-        memberBtn.setPrefWidth(200);
-        staffBtn.setPrefWidth(200);
-        registerBtn.setPrefWidth(200);
+        bookingMGMTBtn.setOnAction(e -> {
+            BaseScene bookingMGMTScene = new BookingMGMTScene("Booking Management");
+
+            bookingMGMTScene.setScene();
+            hide();
+
+        });
 
         centerVBox.setAlignment(Pos.CENTER);
-        centerVBox.getChildren().addAll(memberBtn, staffBtn, registerBtn);
+        centerVBox.getChildren().addAll(bookingsBtn, bookingMGMTBtn);
     }
 }

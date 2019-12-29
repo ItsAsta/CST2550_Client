@@ -29,7 +29,7 @@ public abstract class BaseScene extends Stage {
         pane.setPadding(new Insets(10));
 
 
-        Scene scene = new Scene(pane, 960, 540);
+        Scene scene = new Scene(pane, 1300, 700);
         scene.getStylesheets().add("./org/abdz/resources/stylesheets/stylesheet.css");
 
         fillScene(pane);

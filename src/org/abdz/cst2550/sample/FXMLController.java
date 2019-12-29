@@ -1,4 +1,4 @@
-package org.abdz.cst2550.client;
+package org.abdz.cst2550.sample;
 
 import javafx.scene.control.Button;
 

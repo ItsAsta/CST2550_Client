@@ -55,3 +55,44 @@
     -fx-font-family: 'Dense';
     -fx-font-size: 38px;
 }
+
+.date-time-picker {
+    -fx-faint-focus-color: transparent;
+    -fx-background-color: transparent;
+    -fx-dark-text-color: black;
+    -fx-mid-text-color: black;
+    -fx-light-text-color: black;
+}
+
+.table-view {
+    -fx-font-size: 12px;
+    -fx-dark-text-color: black;
+    -fx-mid-text-color: black;
+    -fx-light-text-color: black;
+    -fx-text-alignment: center;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 10px;
+    -fx-dark-text-color: black;
+    -fx-mid-text-color: black;
+    -fx-light-text-color: black;
+}
+
+.table-row-cell:selected {
+    -fx-selection-bar: #2A2D36;
+    -fx-dark-text-color: white;
+    -fx-mid-text-color: white;
+    -fx-light-text-color: white;
+    -fx-text-alignment: center;
+}
+
+.table-row-cell:empty {
+    -fx-background-color: transparent;
+}
+
+.table-column {
+    -fx-alignment: CENTER;
+}
+
+
