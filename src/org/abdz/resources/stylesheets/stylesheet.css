@@ -28,7 +28,7 @@
 
 .button {
     -fx-border-color: #ffffff;
-    -fx-background-color: transparent;
+    -fx-background-color: #373a44;
     -fx-dark-text-color: white;
     -fx-mid-text-color: white;
     -fx-light-text-color: black;
@@ -54,6 +54,7 @@
 #heading {
     -fx-font-family: 'Dense';
     -fx-font-size: 38px;
+    -fx-padding: 50 0 0 -10;
 }
 
 .date-time-picker {

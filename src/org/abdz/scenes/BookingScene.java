@@ -14,10 +14,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.abdz.cst2550.sample.Main;
-import org.abdz.events.Booking;
-import org.abdz.events.DateTimePicker;
+import org.abdz.utils.Booking;
+import org.abdz.utils.DateTimePicker;
 import org.abdz.utils.SceneUtils;
-import org.abdz.utils.ServerUtils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -38,12 +37,10 @@ public class BookingScene extends BaseScene {
             "ClientFirstName", "ClientLastName", "ClientDob",
             "TrainerFirstName", "TrainerLastName"};
 
-    private ObjectInputStream objectInput;
-    private BufferedWriter output;
 
     private List<TextField> textFieldFilters = new ArrayList<>();
-
     private SceneUtils sceneUtils = new SceneUtils();
+    private Map<Integer, ArrayList<String>> bookings = new HashMap<>();
 
     @Override
     public void fillScene(BorderPane pane) {
@@ -69,8 +66,8 @@ public class BookingScene extends BaseScene {
         backBtn.setPrefWidth(100);
 
         backBtn.setOnAction(e -> {
-            BaseScene baseScene = new PrimaryScene("Primary");
-            baseScene.setScene();
+            BaseScene primaryScene = new PrimaryScene("Gym Bookings");
+            primaryScene.setScene();
             hide();
         });
 
@@ -92,25 +89,26 @@ public class BookingScene extends BaseScene {
         clientIdField.setPromptText("Client ID");
 
         DateTimePicker dateTimeField = new DateTimePicker();
-        dateTimeField.setPromptText("DATE & TIME");
+        dateTimeField.setPromptText("Date & Time");
 
         TextField durationField = new TextField();
         durationField.setPromptText("Duration");
 
         Button addBooking = new Button("Add Booking");
+        addBooking.setPrefWidth(150);
 
         TextField bookingIdRemoval = new TextField();
         bookingIdRemoval.setPromptText("Booking ID");
 
         Button removeBookingBtn = new Button("Remove Booking");
+        removeBookingBtn.setPrefWidth(150);
 
 
         /* Action Triggers */
         addBooking.setOnAction(e -> {
             try {
-                output.write("add=" + trainerIdField.getText() + "=" + clientIdField.getText() + "=" + dateTimeField.getDateValue() + " " + dateTimeField.getTimeValue() + "=" + durationField.getText());
-                output.newLine();
-                output.flush();
+                Main.outputStream.writeUTF("add=" + trainerIdField.getText() + "=" + clientIdField.getText() + "=" + dateTimeField.getDateValue() + " " + dateTimeField.getTimeValue() + "=" + durationField.getText());
+                Main.outputStream.flush();
 
                 loadData(tableView);
             } catch (IOException ex) {
@@ -120,9 +118,8 @@ public class BookingScene extends BaseScene {
 
         removeBookingBtn.setOnAction(e -> {
             try {
-                output.write("remove=" + bookingIdRemoval.getText());
-                output.newLine();
-                output.flush();
+                Main.outputStream.writeUTF("remove=" + bookingIdRemoval.getText());
+                Main.outputStream.flush();
 
                 loadData(tableView);
 
@@ -162,7 +159,6 @@ public class BookingScene extends BaseScene {
         centerVBox.getChildren().addAll(navigationHbox, tableView, filterHbox, addBookingHbox, removeBookingHbox);
 
         try {
-            output = new BufferedWriter(new OutputStreamWriter(Main.socket.getOutputStream()));
             loadData(tableView);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -185,11 +181,11 @@ public class BookingScene extends BaseScene {
                         return true;
                     }
 
-                    if (booking.getClientFirstName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    if (booking.getClientLastName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                         return true;
                     }
 
-                    if (booking.getClientLastName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    if (booking.getClientFirstName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                         return true;
                     }
 
@@ -207,23 +203,16 @@ public class BookingScene extends BaseScene {
 
 
     private void loadData(TableView tv) throws IOException {
-        output.write("listall");
-        output.newLine();
-        output.flush();
+        Main.outputStream.writeUTF("listall");
+        Main.outputStream.flush();
         getBookings();
         tv.setItems(getTableData());
         filterTable(tv);
     }
 
-    private Map<Integer, ArrayList<String>> bookings = new HashMap<>();
-
     private Map<Integer, ArrayList<String>> getBookings() {
         try {
-
-            if (objectInput == null) {
-                objectInput = new ObjectInputStream(Main.socket.getInputStream());
-            }
-            Object dataObject = objectInput.readObject();
+            Object dataObject = Main.inputStream.readObject();
 
             bookings = (Map<Integer, ArrayList<String>>) dataObject;
 
@@ -241,7 +230,7 @@ public class BookingScene extends BaseScene {
 
     private ObservableList<Booking> getTableData() {
 
-        ObservableList<Booking> collections = FXCollections.observableArrayList(bookings.entrySet().stream().map(
+        return FXCollections.observableArrayList(bookings.entrySet().stream().map(
                 map -> new Booking(
                         map.getKey(),
                         Integer.parseInt(map.getValue().get(0)),
@@ -254,7 +243,5 @@ public class BookingScene extends BaseScene {
                         map.getValue().get(7),
                         map.getValue().get(8)))
                 .collect(Collectors.toList()));
-
-        return collections;
     }
 }

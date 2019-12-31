@@ -1,4 +1,4 @@
-package org.abdz.events;
+package org.abdz.utils;
 
 public class Booking {
     private int bookingId;

@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 
@@ -24,18 +25,18 @@ public abstract class BaseScene extends Stage {
         heading.setId("heading");
 
         BorderPane.setAlignment(heading, Pos.CENTER);
-        BorderPane.setMargin(heading, new Insets(10));
+//        BorderPane.setMargin(heading, new Insets(10));
         pane.setTop(heading);
         pane.setPadding(new Insets(10));
 
 
-        Scene scene = new Scene(pane, 1300, 700);
+        Scene scene = new Scene(pane, 1300, 800);
         scene.getStylesheets().add("./org/abdz/resources/stylesheets/stylesheet.css");
 
         fillScene(pane);
         setTitle(title);
         setScene(scene);
-        setResizable(false);
+        setResizable(true);
         pane.requestFocus();
         show();
     }

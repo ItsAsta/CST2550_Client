@@ -1,4 +1,4 @@
-package org.abdz.events;
+package org.abdz.utils;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -34,7 +34,7 @@ public class DateTimePicker extends DatePicker {
 
     public DateTimePicker() {
         getStyleClass().add("date-time-picker");
-        setConverter(new InternalConverter());
+        setConverter(new InternalConverter());;
 
         // Syncronize changes to the underlying date value back to the
         // dateTimeValue
@@ -61,7 +61,6 @@ public class DateTimePicker extends DatePicker {
             if (!newValue)
                 simulateEnterPressed();
         });
-
     }
 
     private void simulateEnterPressed() {

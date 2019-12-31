@@ -3,9 +3,7 @@ package org.abdz.scenes;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import org.abdz.events.DateTimePicker;
 import org.abdz.utils.SceneUtils;
 
 public class PrimaryScene extends BaseScene {
@@ -24,9 +22,9 @@ public class PrimaryScene extends BaseScene {
         bookingsBtn.getStyleClass().add("main-buttons");
         bookingsBtn.setPrefWidth(200);
 
-        Button bookingMGMTBtn = new Button("Booking Management");
-        bookingMGMTBtn.getStyleClass().add("main-buttons");
-        bookingMGMTBtn.setPrefWidth(200);
+        Button bookingSearchBtn = new Button("Booking Search");
+        bookingSearchBtn.getStyleClass().add("main-buttons");
+        bookingSearchBtn.setPrefWidth(200);
 
         bookingsBtn.setOnAction(e -> {
             BaseScene bookingScene = new BookingScene("Bookings");
@@ -36,8 +34,8 @@ public class PrimaryScene extends BaseScene {
 
         });
 
-        bookingMGMTBtn.setOnAction(e -> {
-            BaseScene bookingMGMTScene = new BookingMGMTScene("Booking Management");
+        bookingSearchBtn.setOnAction(e -> {
+            BaseScene bookingMGMTScene = new BookingSearchScene("Booking Search");
 
             bookingMGMTScene.setScene();
             hide();
@@ -45,6 +43,6 @@ public class PrimaryScene extends BaseScene {
         });
 
         centerVBox.setAlignment(Pos.CENTER);
-        centerVBox.getChildren().addAll(bookingsBtn, bookingMGMTBtn);
+        centerVBox.getChildren().addAll(bookingsBtn, bookingSearchBtn);
     }
 }

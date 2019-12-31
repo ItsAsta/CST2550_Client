@@ -19,30 +19,19 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        BaseScene mainScene = new PrimaryScene("GYM Management");
+        BaseScene primaryScene = new PrimaryScene("Gym Bookings");
 
-        mainScene.setScene();
+        primaryScene.setScene();
     }
 
+
+    public static ObjectInputStream inputStream;
+    public static ObjectOutputStream outputStream;
     public static Socket socket;
     public static void main(String[] args) throws IOException {
         socket = new Socket("localhost", 4999);
+        outputStream = new ObjectOutputStream(socket.getOutputStream());
+        inputStream = new ObjectInputStream(socket.getInputStream());
         launch(args);
-//
-//        PrintWriter pr = new PrintWriter(socket.getOutputStream());
-//        pr.println("idiot");
-//        pr.flush();
-//        InputStreamReader in = new InputStreamReader(socket.getInputStream());
-//        BufferedReader br = new BufferedReader(in);
-//
-//        String str = br.readLine();
-//        System.out.println("hehe");
-//
-//        System.out.println("Server: " + str);
-//
-//        if (str.contains("Don't")) {
-//            pr.println("Sorry boss =/");
-//            pr.flush();
-//        }
     }
 }
