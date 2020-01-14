@@ -3,7 +3,6 @@ package org.abdz.cst2550.sample;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.abdz.scenes.BaseScene;
-import org.abdz.scenes.BookingScene;
 import org.abdz.scenes.PrimaryScene;
 
 import java.io.*;

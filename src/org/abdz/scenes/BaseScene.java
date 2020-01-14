@@ -25,7 +25,6 @@ public abstract class BaseScene extends Stage {
         heading.setId("heading");
 
         BorderPane.setAlignment(heading, Pos.CENTER);
-//        BorderPane.setMargin(heading, new Insets(10));
         pane.setTop(heading);
         pane.setPadding(new Insets(10));
 

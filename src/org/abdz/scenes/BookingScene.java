@@ -81,22 +81,7 @@ public class BookingScene extends BaseScene {
         TextField bookingIdField = new TextField();
         bookingIdField.setPromptText("Filter By Booking ID");
 
-        /* Adding Bookings */
-        TextField trainerIdField = new TextField();
-        trainerIdField.setPromptText("Trainer ID");
-
-        TextField clientIdField = new TextField();
-        clientIdField.setPromptText("Client ID");
-
-        DateTimePicker dateTimeField = new DateTimePicker();
-        dateTimeField.setPromptText("Date & Time");
-
-        TextField durationField = new TextField();
-        durationField.setPromptText("Duration");
-
-        Button addBooking = new Button("Add Booking");
-        addBooking.setPrefWidth(150);
-
+        /* Remove Bookinge */
         TextField bookingIdRemoval = new TextField();
         bookingIdRemoval.setPromptText("Booking ID");
 
@@ -105,17 +90,6 @@ public class BookingScene extends BaseScene {
 
 
         /* Action Triggers */
-        addBooking.setOnAction(e -> {
-            try {
-                Main.outputStream.writeUTF("add=" + trainerIdField.getText() + "=" + clientIdField.getText() + "=" + dateTimeField.getDateValue() + " " + dateTimeField.getTimeValue() + "=" + durationField.getText());
-                Main.outputStream.flush();
-
-                loadData(tableView);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
-
         removeBookingBtn.setOnAction(e -> {
             try {
                 Main.outputStream.writeUTF("remove=" + bookingIdRemoval.getText());
@@ -142,11 +116,6 @@ public class BookingScene extends BaseScene {
 
         filterHbox.getChildren().addAll(clientFirstNameFilter, clientLastNameFilter, bookingIdField);
         filterHbox.getChildren().forEach(e -> {
-            e.setStyle("-fx-alignment: CENTER");
-        });
-
-        addBookingHbox.getChildren().addAll(trainerIdField, clientIdField, dateTimeField, durationField, addBooking);
-        addBookingHbox.getChildren().forEach(e -> {
             e.setStyle("-fx-alignment: CENTER");
         });
 

@@ -36,8 +36,6 @@ public class DateTimePicker extends DatePicker {
         getStyleClass().add("date-time-picker");
         setConverter(new InternalConverter());;
 
-        // Syncronize changes to the underlying date value back to the
-        // dateTimeValue
         valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 dateTimeValue.set(null);

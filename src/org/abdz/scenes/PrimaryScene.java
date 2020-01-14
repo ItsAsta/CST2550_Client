@@ -22,27 +22,42 @@ public class PrimaryScene extends BaseScene {
         bookingsBtn.getStyleClass().add("main-buttons");
         bookingsBtn.setPrefWidth(200);
 
-        Button bookingSearchBtn = new Button("Booking Search");
-        bookingSearchBtn.getStyleClass().add("main-buttons");
-        bookingSearchBtn.setPrefWidth(200);
+        Button addBookingBtn = new Button("Add Booking");
+        addBookingBtn.getStyleClass().add("main-buttons");
+        addBookingBtn.setPrefWidth(200);
+
+        Button updateBookingBtn = new Button("Update Booking");
+        updateBookingBtn.getStyleClass().add("main-buttons");
+        updateBookingBtn.setPrefWidth(200);
+
+        Button searchBookingBtn = new Button("Booking Search");
+        searchBookingBtn.getStyleClass().add("main-buttons");
+        searchBookingBtn.setPrefWidth(200);
 
         bookingsBtn.setOnAction(e -> {
-            BaseScene bookingScene = new BookingScene("Bookings");
+            BaseScene bookingScene = new BookingScene("Gym Booking - Bookings");
 
             bookingScene.setScene();
             hide();
 
         });
 
-        bookingSearchBtn.setOnAction(e -> {
-            BaseScene bookingMGMTScene = new BookingSearchScene("Booking Search");
+        addBookingBtn.setOnAction(e -> {
+            BaseScene addBookingScene = new AddBookingScene("Gym Booking - Add Booking");
 
-            bookingMGMTScene.setScene();
+            addBookingScene.setScene();
+            hide();
+        });
+
+        searchBookingBtn.setOnAction(e -> {
+            BaseScene bookingSearchScene = new BookingSearchScene("Gym Booking - Booking Search");
+
+            bookingSearchScene.setScene();
             hide();
 
         });
 
         centerVBox.setAlignment(Pos.CENTER);
-        centerVBox.getChildren().addAll(bookingsBtn, bookingSearchBtn);
+        centerVBox.getChildren().addAll(bookingsBtn, addBookingBtn, updateBookingBtn, searchBookingBtn);
     }
 }
