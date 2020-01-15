@@ -49,6 +49,13 @@ public class PrimaryScene extends BaseScene {
             hide();
         });
 
+        updateBookingBtn.setOnAction(e -> {
+            BaseScene updateBookingScene = new UpdateBookingScene("Gym Booking - Update Booking");
+
+            updateBookingScene.setScene();
+            hide();
+        });
+
         searchBookingBtn.setOnAction(e -> {
             BaseScene bookingSearchScene = new BookingSearchScene("Gym Booking - Booking Search");
 

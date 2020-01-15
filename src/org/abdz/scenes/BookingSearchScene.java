@@ -48,17 +48,6 @@ public class BookingSearchScene extends BaseScene {
         HBox searchHbox = new HBox(5);
         HBox navigationHbox = new HBox(20);
 
-        Button backBtn = new Button("< Back");
-        backBtn.setPrefWidth(100);
-
-        navigationHbox.getChildren().add(backBtn);
-
-        backBtn.setOnAction(e -> {
-            BaseScene primaryScene = new PrimaryScene("Gym Bookings");
-            primaryScene.setScene();
-            hide();
-        });
-
         TextField trainerIdField = new TextField();
         trainerIdField.setPromptText("Trainer ID");
 
@@ -122,7 +111,7 @@ public class BookingSearchScene extends BaseScene {
         }
 
         searchHbox.getChildren().addAll(trainerIdField, clientIdField, fromDateField, toDateField, searchBtn);
-
+        navigationHbox.getChildren().add(sceneUtils.setBackButton(this));
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         centerVBox.setAlignment(Pos.CENTER);

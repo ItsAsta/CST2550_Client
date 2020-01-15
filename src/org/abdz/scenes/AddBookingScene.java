@@ -1,5 +1,6 @@
 package org.abdz.scenes;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -23,16 +24,6 @@ public class AddBookingScene extends BaseScene {
     public void fillScene(BorderPane pane) {
         VBox centerVbox = sceneUtils.getCenterVBox(pane, 20, 500, 500);
         HBox navigationHbox = new HBox(20);
-
-        Button backBtn = new Button("< Back");
-        backBtn.setPrefWidth(100);
-
-        backBtn.setOnAction(e -> {
-            BaseScene primaryScene = new PrimaryScene("Gym Booking");
-
-            primaryScene.setScene();
-            hide();
-        });
 
         /* Adding Bookings */
         TextField trainerIdField = new TextField();
@@ -62,7 +53,7 @@ public class AddBookingScene extends BaseScene {
                 }
         });
 
-        navigationHbox.getChildren().add(backBtn);
+        navigationHbox.getChildren().add(sceneUtils.setBackButton(this));
         centerVbox.setAlignment(Pos.CENTER);
         centerVbox.getChildren().addAll(navigationHbox, trainerIdField, clientIdField, dateTimeField, durationField, addBookingBtn);
     }
