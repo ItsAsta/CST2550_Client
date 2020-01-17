@@ -19,9 +19,9 @@ import java.util.Locale;
 public class DateTimePicker extends DatePicker {
     public static final String DefaultFormat = DateTimeFormatterBuilder.getLocalizedDateTimePattern(
             FormatStyle.MEDIUM, FormatStyle.SHORT, IsoChronology.INSTANCE,
-            Locale.GERMANY); // or whatever Locale
+            Locale.GERMANY);
 
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     private ObjectProperty<LocalDateTime> dateTimeValue = new SimpleObjectProperty<>(LocalDateTime.now());
 

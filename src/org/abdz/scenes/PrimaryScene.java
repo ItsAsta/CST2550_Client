@@ -30,7 +30,7 @@ public class PrimaryScene extends BaseScene {
         updateBookingBtn.getStyleClass().add("main-buttons");
         updateBookingBtn.setPrefWidth(200);
 
-        Button searchBookingBtn = new Button("Booking Search");
+        Button searchBookingBtn = new Button("Search Booking");
         searchBookingBtn.getStyleClass().add("main-buttons");
         searchBookingBtn.setPrefWidth(200);
 
