@@ -1,6 +1,5 @@
 package org.abdz.scenes;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,7 +15,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class UpdateBookingScene extends BaseScene {
     public UpdateBookingScene(String title) {
@@ -64,6 +62,8 @@ public class UpdateBookingScene extends BaseScene {
         Button updateBookingBtn = new Button("Update Booking");
         updateBookingBtn.setMinWidth(600);
 
+        Label statusLabel = new Label();
+
         fetchBookingBtn.setOnAction(e -> {
             if (bookingIdField.getText() != null) {
                 try {
@@ -81,7 +81,7 @@ public class UpdateBookingScene extends BaseScene {
                     clientDobLabel.setText("Client D.O.B: " + booking.get(7));
                     trainerFullNameLabel.setText("Trainer Name: " + booking.get(8) + " " + booking.get(9));
 
-                    System.out.println("yooo");
+                    statusLabel.setText("");
 
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -90,11 +90,19 @@ public class UpdateBookingScene extends BaseScene {
         });
 
         updateBookingBtn.setOnAction(e -> {
-            System.out.println("yooo");
             try {
+                if (durationField.getText().contains(".")) {
+                    System.out.println("Setting status");
+                    statusLabel.setText("Whole integers only for duration!");
+                    statusLabel.setStyle("-fx-mid-text-color: red;");
+                    return;
+                }
                 Main.outputStream.writeUTF("update=" + bookingIdField.getText() + "=" + trainerIdField.getText() + "=" +
                         dateTimeField.getDateValue() + " " + dateTimeField.getTimeValue() + "=" + durationField.getText());
                 Main.outputStream.flush();
+
+                statusLabel.setText("Updated Booking ID: " + bookingIdField.getText());
+                statusLabel.setStyle("-fx-mid-text-color: green;");
 
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -123,7 +131,7 @@ public class UpdateBookingScene extends BaseScene {
         contentContainer.getChildren().addAll(leftContent, rightContent);
         contentContainer.setAlignment(Pos.CENTER);
 
-        centerVBox.getChildren().addAll(navigationHbox, topHBox, contentContainer, updateBookingBtn);
+        centerVBox.getChildren().addAll(navigationHbox, topHBox, contentContainer, updateBookingBtn, statusLabel);
         centerVBox.setAlignment(Pos.CENTER);
     }
 

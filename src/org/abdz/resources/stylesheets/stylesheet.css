@@ -96,4 +96,14 @@
     -fx-alignment: CENTER;
 }
 
+.positive-status {
+    -fx-dark-text-color: green;
+    -fx-mid-text-color: green;
+    -fx-light-text-color: green;
+}
+
+.negative-status {
+    -fx-mid-text-color: red;
+}
+
 

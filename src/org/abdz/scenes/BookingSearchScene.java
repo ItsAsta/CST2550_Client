@@ -150,7 +150,7 @@ public class BookingSearchScene extends BaseScene {
                         Integer.parseInt(map.getValue().get(0)),
                         Integer.parseInt(map.getValue().get(1)),
                         map.getValue().get(2),
-                        Float.parseFloat(map.getValue().get(3)),
+                        Integer.parseInt(map.getValue().get(3)),
                         map.getValue().get(4),
                         map.getValue().get(5),
                         map.getValue().get(6),

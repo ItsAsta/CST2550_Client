@@ -15,10 +15,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.abdz.cst2550.sample.Main;
 import org.abdz.utils.Booking;
-import org.abdz.utils.DateTimePicker;
 import org.abdz.utils.SceneUtils;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -205,7 +204,7 @@ public class BookingScene extends BaseScene {
                         Integer.parseInt(map.getValue().get(0)),
                         Integer.parseInt(map.getValue().get(1)),
                         map.getValue().get(2),
-                        Float.parseFloat(map.getValue().get(3)),
+                        Integer.parseInt(map.getValue().get(3)),
                         map.getValue().get(4),
                         map.getValue().get(5),
                         map.getValue().get(6),

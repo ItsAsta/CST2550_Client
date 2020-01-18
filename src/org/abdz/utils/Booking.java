@@ -5,7 +5,7 @@ public class Booking {
     private int trainerId;
     private int clientId;
     private String dateTime;
-    private float duration;
+    private int duration;
     private String clientFirstName;
     private String clientLastName;
     private String clientDob;
@@ -13,7 +13,7 @@ public class Booking {
     private String trainerLastName;
 
     public Booking(int bookingId, int trainerId, int clientId, String dateTime,
-                   float duration, String clientFirstName, String clientLastName, String clientDob,
+                   int duration, String clientFirstName, String clientLastName, String clientDob,
                    String trainerFirstName, String trainerLastName) {
         this.bookingId = bookingId;
         this.trainerId = trainerId;
@@ -60,11 +60,11 @@ public class Booking {
         this.dateTime = dateTime;
     }
 
-    public float getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(float duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 

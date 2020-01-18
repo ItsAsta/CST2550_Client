@@ -5,7 +5,9 @@ import javafx.stage.Stage;
 import org.abdz.scenes.BaseScene;
 import org.abdz.scenes.PrimaryScene;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 
