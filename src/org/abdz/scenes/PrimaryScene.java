@@ -4,7 +4,10 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import org.abdz.cst2550.sample.Main;
 import org.abdz.utils.SceneUtils;
+
+import java.io.IOException;
 
 public class PrimaryScene extends BaseScene {
     public PrimaryScene(String title) {
@@ -33,6 +36,10 @@ public class PrimaryScene extends BaseScene {
         Button searchBookingBtn = new Button("Search Booking");
         searchBookingBtn.getStyleClass().add("main-buttons");
         searchBookingBtn.setPrefWidth(200);
+
+        Button quitBtn = new Button("Quit");
+        quitBtn.getStyleClass().add("main-buttons");
+        quitBtn.setPrefWidth(200);
 
         bookingsBtn.setOnAction(e -> {
             BaseScene bookingScene = new BookingScene("Gym Booking - Bookings");
@@ -64,7 +71,16 @@ public class PrimaryScene extends BaseScene {
 
         });
 
+        quitBtn.setOnAction(e -> {
+            try {
+                Main.socket.close();
+            } catch (IOException ex) {
+                System.err.println("Can't close socket connection.");
+                ex.printStackTrace();
+            }
+        });
+
         centerVBox.setAlignment(Pos.CENTER);
-        centerVBox.getChildren().addAll(bookingsBtn, addBookingBtn, updateBookingBtn, searchBookingBtn);
+        centerVBox.getChildren().addAll(bookingsBtn, addBookingBtn, updateBookingBtn, searchBookingBtn, quitBtn);
     }
 }

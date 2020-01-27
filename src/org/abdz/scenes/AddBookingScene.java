@@ -48,6 +48,7 @@ public class AddBookingScene extends BaseScene {
                     Main.outputStream.flush();
                     System.out.println("Successfully added booking");
                 } catch (IOException ex) {
+                    System.err.println("Can't write to server.");
                     ex.printStackTrace();
                 }
         });

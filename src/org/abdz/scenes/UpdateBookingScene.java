@@ -105,6 +105,7 @@ public class UpdateBookingScene extends BaseScene {
                 statusLabel.setStyle("-fx-mid-text-color: green;");
 
             } catch (IOException ex) {
+                System.err.println("Can't write to server.");
                 ex.printStackTrace();
             }
         });
@@ -147,6 +148,7 @@ public class UpdateBookingScene extends BaseScene {
             System.out.println("Can't fetch bookings from server.");
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            System.out.println("Can't fetch bookings from server.");
             e.printStackTrace();
         }
 

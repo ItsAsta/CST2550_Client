@@ -74,6 +74,7 @@ public class BookingSearchScene extends BaseScene {
                     trainerIdField.clear();
                     return;
                 } catch (IOException ex) {
+                    System.err.println("Can't write to server.");
                     ex.printStackTrace();
                 }
             }
@@ -86,6 +87,7 @@ public class BookingSearchScene extends BaseScene {
                     clientIdField.clear();
                     return;
                 } catch (IOException ex) {
+                    System.err.println("Can't write to server.");
                     ex.printStackTrace();
                 }
             }
@@ -96,6 +98,7 @@ public class BookingSearchScene extends BaseScene {
                     Main.outputStream.flush();
                     loadData(tableView);
                 } catch (IOException ex) {
+                    System.err.println("Can't write to server.");
                     ex.printStackTrace();
                 }
             }
@@ -133,9 +136,10 @@ public class BookingSearchScene extends BaseScene {
             return bookings;
 
         } catch (IOException e) {
-            System.out.println("Can't fetch bookings from server.");
+            System.err.println("Can't fetch bookings from server.");
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            System.err.println("Can't fetch bookings from server.");
             e.printStackTrace();
         }
 

@@ -100,6 +100,7 @@ public class BookingScene extends BaseScene {
                     bookingIdRemoval.clear();
                 }
             } catch (IOException ex) {
+                System.err.println("Can't write to server.");
                 ex.printStackTrace();
             }
         });
@@ -129,6 +130,7 @@ public class BookingScene extends BaseScene {
         try {
             loadData(tableView);
         } catch (IOException ex) {
+            System.err.println("Can't load data.");
             ex.printStackTrace();
         }
     }
