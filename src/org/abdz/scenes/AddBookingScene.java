@@ -2,6 +2,7 @@ package org.abdz.scenes;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -11,6 +12,8 @@ import org.abdz.utils.DateTimePicker;
 import org.abdz.utils.SceneUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddBookingScene extends BaseScene {
     public AddBookingScene(String title) {
@@ -18,6 +21,7 @@ public class AddBookingScene extends BaseScene {
     }
 
     private SceneUtils sceneUtils = new SceneUtils();
+    private List<TextField> verificationFields = new ArrayList<>();
 
     @Override
     public void fillScene(BorderPane pane) {
@@ -42,11 +46,28 @@ public class AddBookingScene extends BaseScene {
         Button addBookingBtn = new Button("Add Booking");
         addBookingBtn.setPrefWidth(150);
 
+        Label statusLabel = new Label();
+
         addBookingBtn.setOnAction(e -> {
                 try {
+                    verificationFields.clear();
+                    verificationFields.add(trainerIdField);
+                    verificationFields.add(clientIdField);
+                    verificationFields.add(durationField);
+
+                    for (TextField verificationFields : verificationFields) {
+                        if (verificationFields.getText().isEmpty()) {
+                            statusLabel.setText("One or more fields are empty!");
+                            statusLabel.setStyle("-fx-mid-text-color: red;");
+                            return;
+                        }
+                    }
+
                     Main.outputStream.writeUTF("add=" + trainerIdField.getText() + "=" + clientIdField.getText() + "=" + dateTimeField.getDateValue() + " " + dateTimeField.getTimeValue() + "=" + durationField.getText());
                     Main.outputStream.flush();
-                    System.out.println("Successfully added booking");
+
+                    statusLabel.setText("Successfully Added Booking");
+                    statusLabel.setStyle("-fx-mid-text-color: green;");
                 } catch (IOException ex) {
                     System.err.println("Can't write to server.");
                     ex.printStackTrace();
@@ -55,6 +76,6 @@ public class AddBookingScene extends BaseScene {
 
         navigationHbox.getChildren().add(sceneUtils.setBackButton(this));
         centerVbox.setAlignment(Pos.CENTER);
-        centerVbox.getChildren().addAll(navigationHbox, trainerIdField, clientIdField, dateTimeField, durationField, addBookingBtn);
+        centerVbox.getChildren().addAll(navigationHbox, trainerIdField, clientIdField, dateTimeField, durationField, addBookingBtn, statusLabel);
     }
 }

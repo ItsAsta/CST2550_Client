@@ -23,6 +23,7 @@ public class UpdateBookingScene extends BaseScene {
 
     private SceneUtils sceneUtils = new SceneUtils();
     private List<String> booking = new ArrayList<>();
+    private List<TextField> verificationFields = new ArrayList<>();
 
     @Override
     public void fillScene(BorderPane pane) {
@@ -92,16 +93,28 @@ public class UpdateBookingScene extends BaseScene {
         updateBookingBtn.setOnAction(e -> {
             try {
                 if (durationField.getText().contains(".")) {
-                    System.out.println("Setting status");
                     statusLabel.setText("Whole integers only for duration!");
                     statusLabel.setStyle("-fx-mid-text-color: red;");
                     return;
                 }
+
+                verificationFields.clear();
+                verificationFields.add(trainerIdField);
+                verificationFields.add(durationField);
+
+                for (TextField verificationField : verificationFields) {
+                    if (verificationField.getText().isEmpty()) {
+                        statusLabel.setText("One or more fields are empty!");
+                        statusLabel.setStyle("-fx-mid-text-color: red;");
+                        return;
+                    }
+                }
+
                 Main.outputStream.writeUTF("update=" + bookingIdField.getText() + "=" + trainerIdField.getText() + "=" +
                         dateTimeField.getDateValue() + " " + dateTimeField.getTimeValue() + "=" + durationField.getText());
                 Main.outputStream.flush();
 
-                statusLabel.setText("Updated Booking ID: " + bookingIdField.getText());
+                statusLabel.setText("Successfully Updated Booking ID: " + bookingIdField.getText());
                 statusLabel.setStyle("-fx-mid-text-color: green;");
 
             } catch (IOException ex) {

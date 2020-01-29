@@ -74,6 +74,7 @@ public class PrimaryScene extends BaseScene {
         quitBtn.setOnAction(e -> {
             try {
                 Main.socket.close();
+                System.exit(0);
             } catch (IOException ex) {
                 System.err.println("Can't close socket connection.");
                 ex.printStackTrace();
