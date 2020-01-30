@@ -21,6 +21,14 @@ public class PrimaryScene extends BaseScene {
         VBox centerVBox = sceneUtils.getCenterVBox(pane, 20, 400, 400);
         pane.setCenter(centerVBox);
 
+        Button registerClientBtn = new Button("Register Client");
+        registerClientBtn.getStyleClass().addAll("main-buttons");
+        registerClientBtn.setPrefWidth(200);
+
+        Button updateClientBtn = new Button("Update Client");
+        updateClientBtn.getStyleClass().addAll("main-buttons");
+        updateClientBtn.setPrefWidth(200);
+
         Button bookingsBtn = new Button("Bookings");
         bookingsBtn.getStyleClass().add("main-buttons");
         bookingsBtn.setPrefWidth(200);
@@ -40,6 +48,20 @@ public class PrimaryScene extends BaseScene {
         Button quitBtn = new Button("Quit");
         quitBtn.getStyleClass().add("main-buttons");
         quitBtn.setPrefWidth(200);
+
+        registerClientBtn.setOnAction(e -> {
+            BaseScene clientRegisterScene = new RegisterClientScene("Gym Booking - Register Client");
+
+            clientRegisterScene.setScene();
+            hide();
+        });
+
+        updateClientBtn.setOnAction(e -> {
+            BaseScene updateClientScene = new UpdateClientScene("Gym Booking - Update Client");
+
+            updateClientScene.setScene();
+            hide();
+        });
 
         bookingsBtn.setOnAction(e -> {
             BaseScene bookingScene = new BookingScene("Gym Booking - Bookings");
@@ -82,6 +104,6 @@ public class PrimaryScene extends BaseScene {
         });
 
         centerVBox.setAlignment(Pos.CENTER);
-        centerVBox.getChildren().addAll(bookingsBtn, addBookingBtn, updateBookingBtn, searchBookingBtn, quitBtn);
+        centerVBox.getChildren().addAll(registerClientBtn, updateClientBtn, bookingsBtn, addBookingBtn, updateBookingBtn, searchBookingBtn, quitBtn);
     }
 }

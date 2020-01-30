@@ -68,7 +68,7 @@ public class UpdateBookingScene extends BaseScene {
         fetchBookingBtn.setOnAction(e -> {
             if (bookingIdField.getText() != null) {
                 try {
-                    Main.outputStream.writeUTF("fetch=" + bookingIdField.getText());
+                    Main.outputStream.writeUTF("fetchbooking=" + bookingIdField.getText());
                     Main.outputStream.flush();
                     getBooking();
 
@@ -110,7 +110,7 @@ public class UpdateBookingScene extends BaseScene {
                     }
                 }
 
-                Main.outputStream.writeUTF("update=" + bookingIdField.getText() + "=" + trainerIdField.getText() + "=" +
+                Main.outputStream.writeUTF("updatebooking=" + bookingIdField.getText() + "=" + trainerIdField.getText() + "=" +
                         dateTimeField.getDateValue() + " " + dateTimeField.getTimeValue() + "=" + durationField.getText());
                 Main.outputStream.flush();
 
