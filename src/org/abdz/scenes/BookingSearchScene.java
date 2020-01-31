@@ -101,7 +101,7 @@ public class BookingSearchScene extends BaseScene {
             if (!clientIdField.getText().isEmpty()) {
                 try {
 //                    Check if there is any characters other than whole numbers
-                    if (clientIdField.getText().matches("[0-9]+")) {
+                    if (!clientIdField.getText().matches("[0-9]+")) {
 //                        Set the text for the label
                         statusLabel.setText("IDs can only be integers!");
 //                        Set red colour to our font
@@ -134,15 +134,19 @@ public class BookingSearchScene extends BaseScene {
                     Main.outputStream.flush();
 //                Load the data for our new table
                     loadData(tableView);
+                    fromDateField.getEditor().clear();
+                    toDateField.getEditor().clear();
                 } catch (IOException ex) {
                     System.err.println("Can't write to server.");
                     ex.printStackTrace();
                 }
             }
 
-//            Clear both textfields ready for next input
+//            Clear textfields ready for next input
             trainerIdField.clear();
             clientIdField.clear();
+            fromDateField.getEditor().clear();
+            toDateField.getEditor().clear();
         });
 
 //        A for loop iterate our TABLE_HEADING array
