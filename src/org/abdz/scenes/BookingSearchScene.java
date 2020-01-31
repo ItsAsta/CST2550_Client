@@ -86,10 +86,10 @@ public class BookingSearchScene extends BaseScene {
                     Main.outputStream.flush();
 //                    Load the data for our new table
                     loadData(tableView);
+                    statusLabel.setText("Displaying Bookings for Trainer ID: " + trainerIdField.getText());
+                    statusLabel.setStyle("-fx-mid-text-color: green;");
 //                    Clear the trainer id text field so that is becomes empty
                     trainerIdField.clear();
-//                    Remove the text for our label
-                    statusLabel.setText("");
                     return;
                 } catch (IOException ex) {
                     System.err.println("Can't write to server.");
@@ -114,10 +114,10 @@ public class BookingSearchScene extends BaseScene {
                     Main.outputStream.flush();
 //                Load the data for our new table
                     loadData(tableView);
+                    statusLabel.setText("Displaying Bookings for Client ID: " + clientIdField.getText());
+                    statusLabel.setStyle("-fx-mid-text-color: green;");
 //                    Clear the textfield so it's empty
                     clientIdField.clear();
-//                    Remove the text for our label
-                    statusLabel.setText("");
                     return;
                 } catch (IOException ex) {
                     System.err.println("Can't write to server.");
@@ -134,6 +134,9 @@ public class BookingSearchScene extends BaseScene {
                     Main.outputStream.flush();
 //                Load the data for our new table
                     loadData(tableView);
+                    statusLabel.setText("Displaying Bookings Between From " + fromDateField.getDateValue() + " TO " + toDateField.getDateValue());
+                    statusLabel.setStyle("-fx-mid-text-color: green;");
+//                    Clear date fields
                     fromDateField.getEditor().clear();
                     toDateField.getEditor().clear();
                 } catch (IOException ex) {
@@ -164,7 +167,7 @@ public class BookingSearchScene extends BaseScene {
         navigationHbox.getChildren().add(sceneUtils.setBackButton(this));
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         centerVBox.setAlignment(Pos.CENTER);
-        centerVBox.getChildren().addAll(navigationHbox, searchHbox, tableView);
+        centerVBox.getChildren().addAll(navigationHbox, searchHbox, tableView, statusLabel);
     }
 
     /**
