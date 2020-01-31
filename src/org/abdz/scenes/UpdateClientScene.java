@@ -13,7 +13,6 @@ import org.abdz.utils.SceneUtils;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +45,7 @@ public class UpdateClientScene extends BaseScene {
 
         navigationHbox.getChildren().addAll(backBtn, clientId, fetchClientBtn);
 
-//        LEFT CONTENT
+//        LEFT CONTENT COMPONENTS
         TextField firstName = new TextField();
         firstName.setPromptText("First Name");
 
@@ -60,7 +59,7 @@ public class UpdateClientScene extends BaseScene {
         leftContent.setAlignment(Pos.TOP_CENTER);
         leftContent.getChildren().addAll(firstName, lastName, dob);
 
-//        RIGHT CONTENT
+//        RIGHT CONTENT COMPONENTS
         TextField weight = new TextField();
         weight.setPromptText("Weight");
 
@@ -81,13 +80,18 @@ public class UpdateClientScene extends BaseScene {
         Button updateClientBtn = new Button("Update Client");
         updateClientBtn.setPrefWidth(200);
 
+//        Action triggers for our buttons
         fetchClientBtn.setOnAction(e -> {
 
             try {
+//                    Write to our socket which is connected to our server
                 Main.outputStream.writeUTF("fetchclient=" + clientId.getText());
+//                    Flush the socket so the message is sent immediately
                 Main.outputStream.flush();
+//                    A method that is called to grab the data from the socket, which the server has returned
                 getClient();
 
+//                    Change the text for the textfields using our booking list to get the values
                 firstName.setText(client.get(1));
                 lastName.setText(client.get(2));
                 System.out.println(LocalDate.parse(client.get(3)));
@@ -105,7 +109,9 @@ public class UpdateClientScene extends BaseScene {
         });
 
         updateClientBtn.setOnAction(e -> {
+//            Clear verification list
             verificationFields.clear();
+//            Add new components to our list
             verificationFields.add(clientId);
             verificationFields.add(firstName);
             verificationFields.add(lastName);
@@ -114,20 +120,26 @@ public class UpdateClientScene extends BaseScene {
             verificationFields.add(mobileNo);
             verificationFields.add(focus);
 
+//                For each for our list to iterate through
             for (TextField verificationField : verificationFields) {
+//              Check if the verification field has eight in it, which we then check if it meets certain criteria.
                 if (verificationField.getPromptText().contains("eight")) {
+//                    If the textfield has more than 3 characters
                     if (verificationField.getText().length() > 3) {
                         statusLabel.setText("Height or Weight can't be more than 3 characters!");
                         statusLabel.setStyle("-fx-mid-text-color: red;");
                         return;
                     }
 
+//                    Check if the textfield has any characters other than whole numbers
                     if (!verificationField.getText().matches("[0-9]+")) {
                         statusLabel.setText("Height or Weight can only be integers!");
                         statusLabel.setStyle("-fx-mid-text-color: red;");
                         return;
                     }
                 }
+
+//                Check if any of the fields are empty
                 if (verificationField.getText().isEmpty()) {
                     statusLabel.setText("One or more fields are empty!");
                     statusLabel.setStyle("-fx-mid-text-color: red;");
@@ -136,9 +148,12 @@ public class UpdateClientScene extends BaseScene {
             }
 
             try {
+//                    Write to our socket which is connected to our server
                 Main.outputStream.writeUTF("updateclient=" + clientId.getText() + "=" + firstName.getText() + "=" + lastName.getText() + "=" +
                         dob.getDateValue().toString() + "=" + Integer.parseInt(weight.getText()) + "=" +
                         Integer.parseInt(height.getText()) + "=" + mobileNo.getText() + "=" + focus.getText());
+
+//                Flush the socket so the message is sent immediately
                 Main.outputStream.flush();
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -163,12 +178,18 @@ public class UpdateClientScene extends BaseScene {
 
     }
 
+    /**
+     * Gets the object from our server and returns it as a list for modification
+     *
+     * @return a list of the clients
+     */
     private List<String> getClient() {
         try {
+//            Store our object from the server into an object
             Object dataObject = Main.inputStream.readObject();
-
+//            Assign map to our new object
             client = (List<String>) dataObject;
-
+//            Return the newly create Map object
             return client;
 
         } catch (IOException | ClassNotFoundException e) {

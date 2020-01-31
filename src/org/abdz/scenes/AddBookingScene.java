@@ -23,12 +23,15 @@ public class AddBookingScene extends BaseScene {
     private SceneUtils sceneUtils = new SceneUtils();
     private List<TextField> verificationFields = new ArrayList<>();
 
+    /**
+     * @param pane used as a drawing board for our components
+     */
     @Override
     public void fillScene(BorderPane pane) {
         VBox centerVbox = sceneUtils.getCenterVBox(pane, 20, 500, 500);
         HBox navigationHbox = new HBox(20);
 
-        /* Adding Bookings */
+        /* Adding Bookings Components*/
         TextField trainerIdField = new TextField();
         trainerIdField.setPromptText("Trainer ID");
 
@@ -49,31 +52,48 @@ public class AddBookingScene extends BaseScene {
         Label statusLabel = new Label();
 
         addBookingBtn.setOnAction(e -> {
-                try {
-                    verificationFields.clear();
-                    verificationFields.add(trainerIdField);
-                    verificationFields.add(clientIdField);
-                    verificationFields.add(durationField);
+            try {
+//                Clear our list
+                verificationFields.clear();
+//                Add all our fields to our list for verification later on
+                verificationFields.add(trainerIdField);
+                verificationFields.add(clientIdField);
+                verificationFields.add(durationField);
 
-                    for (TextField verificationFields : verificationFields) {
-                        if (verificationFields.getText().isEmpty()) {
-                            statusLabel.setText("One or more fields are empty!");
-                            statusLabel.setStyle("-fx-mid-text-color: red;");
-                            return;
-                        }
+//                For each for our list to iterate through
+                for (TextField verificationFields : verificationFields) {
+//                    Check if the verification field has the IDs, which we then check if it contains characters other than whole numbers.
+                    if (verificationFields.getPromptText().contains("ID") && !verificationFields.getText().matches("[0-9]+")) {
+//                        Set the text for the label
+                        statusLabel.setText("IDs can only be integers!");
+//                        Set red colour to our font
+                        statusLabel.setStyle("-fx-mid-text-color: red;");
+                        return;
                     }
 
-                    Main.outputStream.writeUTF("add=" + trainerIdField.getText() + "=" + clientIdField.getText() + "=" + dateTimeField.getDateValue() + " " + dateTimeField.getTimeValue() + "=" + durationField.getText());
-                    Main.outputStream.flush();
-
-                    statusLabel.setText("Successfully Added Booking");
-                    statusLabel.setStyle("-fx-mid-text-color: green;");
-                } catch (IOException ex) {
-                    System.err.println("Can't write to server.");
-                    ex.printStackTrace();
+                    if (verificationFields.getText().isEmpty()) {
+//                        Set the text for the label
+                        statusLabel.setText("One or more fields are empty!");
+//                        Set red colour to our font
+                        statusLabel.setStyle("-fx-mid-text-color: red;");
+                        return;
+                    }
                 }
+
+//                Write to our stream to pass to the server
+                Main.outputStream.writeUTF("add=" + trainerIdField.getText() + "=" + clientIdField.getText() + "=" + dateTimeField.getDateValue() + " " + dateTimeField.getTimeValue() + "=" + durationField.getText());
+//                Flush the stream so the message is sent across to the server
+                Main.outputStream.flush();
+
+                statusLabel.setText("Successfully Added Booking");
+                statusLabel.setStyle("-fx-mid-text-color: green;");
+            } catch (IOException ex) {
+                System.err.println("Can't write to server.");
+                ex.printStackTrace();
+            }
         });
 
+//        Add the components to our containers
         navigationHbox.getChildren().add(sceneUtils.setBackButton(this));
         centerVbox.setAlignment(Pos.CENTER);
         centerVbox.getChildren().addAll(navigationHbox, trainerIdField, clientIdField, dateTimeField, durationField, addBookingBtn, statusLabel);

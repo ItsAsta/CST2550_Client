@@ -103,7 +103,9 @@
 }
 
 .negative-status {
+    -fx-dark-text-color: red;
     -fx-mid-text-color: red;
+    -fx-light-text-color: red;
 }
 
 

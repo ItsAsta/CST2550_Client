@@ -34,7 +34,8 @@ public class DateTimePicker extends DatePicker {
 
     public DateTimePicker() {
         getStyleClass().add("date-time-picker");
-        setConverter(new InternalConverter());;
+        setConverter(new InternalConverter());
+        ;
 
         valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {

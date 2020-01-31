@@ -13,9 +13,7 @@ import org.abdz.utils.SceneUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class RegisterClientScene extends BaseScene {
     public RegisterClientScene(String title) {
@@ -36,9 +34,7 @@ public class RegisterClientScene extends BaseScene {
         Button backBtn = new Button("< Back");
         backBtn.setPrefWidth(100);
 
-        navigationHbox.getChildren().add(backBtn);
-
-//        LEFT CONTENT
+//        LEFT CONTENT COMPONENTS
         TextField firstName = new TextField();
         firstName.setPromptText("First Name");
 
@@ -52,7 +48,7 @@ public class RegisterClientScene extends BaseScene {
         leftContent.setAlignment(Pos.TOP_CENTER);
         leftContent.getChildren().addAll(firstName, lastName, dob);
 
-//        RIGHT CONTENT
+//        RIGHT CONTENT COMPONENTS
         TextField weight = new TextField();
         weight.setPromptText("Weight");
 
@@ -73,29 +69,35 @@ public class RegisterClientScene extends BaseScene {
         Button registerClientBtn = new Button("Register Client");
         registerClientBtn.setPrefWidth(200);
 
+//        Action trigger for our register button
         registerClientBtn.setOnAction(e -> {
+//            Clear verification list
             verificationFields.clear();
+//            Add new components to our list
             verificationFields.add(firstName);
             verificationFields.add(lastName);
             verificationFields.add(weight);
             verificationFields.add(height);
             verificationFields.add(mobileNo);
             verificationFields.add(focus);
-
+//                For each for our list to iterate through
             for (TextField verificationField : verificationFields) {
+//                    Check if the verification field has eight in it, which we then check if it meets certain criteria.
                 if (verificationField.getPromptText().contains("eight")) {
+//                    If the textfield has more than 3 characters
                     if (verificationField.getText().length() > 3) {
                         statusLabel.setText("Height or Weight can't be more than 3 characters!");
                         statusLabel.setStyle("-fx-mid-text-color: red;");
                         return;
                     }
-
+//                    Check if the textfield has any characters other than whole numbers
                     if (!verificationField.getText().matches("[0-9]+")) {
                         statusLabel.setText("Height or Weight can only be integers!");
                         statusLabel.setStyle("-fx-mid-text-color: red;");
                         return;
                     }
                 }
+//                Check if any of the fields are empty
                 if (verificationField.getText().isEmpty()) {
                     statusLabel.setText("One or more fields are empty!");
                     statusLabel.setStyle("-fx-mid-text-color: red;");
@@ -104,9 +106,11 @@ public class RegisterClientScene extends BaseScene {
             }
 
             try {
+//                    Write to our socket which is connected to our server
                 Main.outputStream.writeUTF("register=" + firstName.getText() + "=" + lastName.getText() + "=" +
                         dob.getDateValue().toString() + "=" + Integer.parseInt(weight.getText()) + "=" +
                         Integer.parseInt(height.getText()) + "=" + mobileNo.getText() + "=" + focus.getText());
+//                Flush the socket so the message is sent immediately
                 Main.outputStream.flush();
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -117,17 +121,19 @@ public class RegisterClientScene extends BaseScene {
         });
 
 
+//        Action trigger for our back button where it'll go back to the previous scene
         backBtn.setOnAction(e -> {
             BaseScene primaryScene = new PrimaryScene("Gym Bookings");
             primaryScene.setScene();
             hide();
         });
 
+        navigationHbox.getChildren().add(backBtn);
+
         contentContainer.setAlignment(Pos.TOP_CENTER);
         contentContainer.getChildren().addAll(leftContent, rightContent);
 
         centerVBox.setAlignment(Pos.CENTER);
         centerVBox.getChildren().addAll(navigationHbox, contentContainer, registerClientBtn, statusLabel);
-
     }
 }

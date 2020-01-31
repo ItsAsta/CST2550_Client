@@ -9,30 +9,52 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Scanner;
 
 
 public class Main extends Application {
 
-    /*TODO:
-    * Work on booking management scene. Finish by 27/28th of December
-    * Cleanup code inside Server.java (Put methods inside a different class)
-    * */
-
     @Override
     public void start(Stage primaryStage) {
         BaseScene primaryScene = new PrimaryScene("Gym Bookings");
-
         primaryScene.setScene();
     }
 
+    private static String host;
+    private static int port;
 
+    //    Create an Object input and output stream
     public static ObjectInputStream inputStream;
     public static ObjectOutputStream outputStream;
+    //    Create a Socket object
     public static Socket socket;
-    public static void main(String[] args) throws IOException {
-        socket = new Socket("localhost", 4999);
-        outputStream = new ObjectOutputStream(socket.getOutputStream());
-        inputStream = new ObjectInputStream(socket.getInputStream());
+    //    Scanner to read terminal
+    private static Scanner scanner;
+
+    public static void main(String[] args) {
+//        Check if the number of is equal to 2
+        if (args.length == 2) {
+//            Take first index of array and store it for the host
+            host = args[0];
+//            Take second index of array and store it for the port
+            port = Integer.parseInt(args[1]);
+        } else {
+            System.err.println("Wrong argument format, e.g.: [Hostname] [Port]");
+            System.exit(0);
+        }
+//        Initialise socket
+        try {
+            socket = new Socket(host, port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        Initialise input and out streams
+        try {
+            outputStream = new ObjectOutputStream(socket.getOutputStream());
+            inputStream = new ObjectInputStream(socket.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         launch(args);
     }
 }

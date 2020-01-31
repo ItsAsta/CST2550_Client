@@ -9,6 +9,15 @@ import org.abdz.scenes.PrimaryScene;
 
 public class SceneUtils {
 
+    /**
+     * Used to centralise components within a scene
+     *
+     * @param pane       that holds the components
+     * @param spacing    space between each component
+     * @param leftWidth  left padding
+     * @param rightWidth right padding
+     * @return AVBox
+     */
     public VBox getCenterVBox(BorderPane pane, int spacing, int leftWidth, int rightWidth) {
         VBox centerVBox = new VBox(spacing);
         StackPane leftPane = new StackPane();
@@ -24,6 +33,12 @@ public class SceneUtils {
         return centerVBox;
     }
 
+    /**
+     * Default button for the back navigation
+     *
+     * @param scene which scene this will be used on, can pass this if you want to use current class
+     * @return returns a Button object
+     */
     public Button setBackButton(BaseScene scene) {
         Button backBtn = new Button("< Back");
         backBtn.setPrefWidth(100);

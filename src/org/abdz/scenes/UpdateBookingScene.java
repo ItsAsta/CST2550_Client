@@ -34,14 +34,16 @@ public class UpdateBookingScene extends BaseScene {
         VBox leftContent = new VBox(20);
         VBox rightContent = new VBox(20);
 
+        Button backBtn = new Button("< Back");
+        backBtn.setPrefWidth(100);
+
         TextField bookingIdField = new TextField();
         bookingIdField.setPromptText("Booking ID");
-
         Button fetchBookingBtn = new Button("Fetch");
         fetchBookingBtn.setMinWidth(100);
 
 
-        // LEFT PANEL
+        // LEFT PANEL COMPONENTS
         Label bookingIdLabel = new Label();
         Label trainerIdLabel = new Label();
         Label trainerFullNameLabel = new Label();
@@ -49,7 +51,7 @@ public class UpdateBookingScene extends BaseScene {
         Label clientFullNameLabel = new Label();
         Label clientDobLabel = new Label();
 
-        // RIGHT PANEL
+        // RIGHT PANEL COMPONENTS
         Label trainerIdLabelText = new Label("Trainer ID");
         TextField trainerIdField = new TextField();
         trainerIdField.setAlignment(Pos.CENTER);
@@ -59,19 +61,24 @@ public class UpdateBookingScene extends BaseScene {
         TextField durationField = new TextField();
         durationField.setAlignment(Pos.CENTER);
 
-        // BOTTOM PANEL
+        // BOTTOM COMPONENTS
         Button updateBookingBtn = new Button("Update Booking");
         updateBookingBtn.setMinWidth(600);
 
         Label statusLabel = new Label();
 
+//        Action triggers for buttons
         fetchBookingBtn.setOnAction(e -> {
             if (bookingIdField.getText() != null) {
                 try {
+//                    Write to our socket which is connected to our server
                     Main.outputStream.writeUTF("fetchbooking=" + bookingIdField.getText());
+//                    Flush the socket so the message is sent immediately
                     Main.outputStream.flush();
+//                    A method that is called to grab the data from the socket, which the server has returned
                     getBooking();
 
+//                    Change the text for the textfields using our booking list to get the values
                     bookingIdLabel.setText("Booking ID: " + booking.get(0));
                     trainerIdLabel.setText("Trainer ID: " + booking.get(1));
                     trainerIdField.setText(booking.get(1));
@@ -102,7 +109,9 @@ public class UpdateBookingScene extends BaseScene {
                 verificationFields.add(trainerIdField);
                 verificationFields.add(durationField);
 
+//                For each for our list to iterate through
                 for (TextField verificationField : verificationFields) {
+//                    Check if the textfield is empty.
                     if (verificationField.getText().isEmpty()) {
                         statusLabel.setText("One or more fields are empty!");
                         statusLabel.setStyle("-fx-mid-text-color: red;");
@@ -110,8 +119,10 @@ public class UpdateBookingScene extends BaseScene {
                     }
                 }
 
+//                    Write to our socket which is connected to our server
                 Main.outputStream.writeUTF("updatebooking=" + bookingIdField.getText() + "=" + trainerIdField.getText() + "=" +
                         dateTimeField.getDateValue() + " " + dateTimeField.getTimeValue() + "=" + durationField.getText());
+//                    Flush the socket so the message is sent immediately
                 Main.outputStream.flush();
 
                 statusLabel.setText("Successfully Updated Booking ID: " + bookingIdField.getText());
@@ -123,16 +134,13 @@ public class UpdateBookingScene extends BaseScene {
             }
         });
 
-        Button backBtn = new Button("< Back");
-        backBtn.setPrefWidth(100);
-
-        navigationHbox.getChildren().addAll(backBtn);
-
         backBtn.setOnAction(e -> {
             BaseScene primaryScene = new PrimaryScene("Gym Bookings");
             primaryScene.setScene();
             hide();
         });
+
+        navigationHbox.getChildren().addAll(backBtn);
 
         topHBox.getChildren().addAll(bookingIdField, fetchBookingBtn);
 
@@ -149,22 +157,24 @@ public class UpdateBookingScene extends BaseScene {
         centerVBox.setAlignment(Pos.CENTER);
     }
 
+    /**
+     * Gets the object from our server and returns it as a map for modification
+     *
+     * @return a list of the bookings
+     */
     private List<String> getBooking() {
         try {
+//            Store our object from the server into an object
             Object dataObject = Main.inputStream.readObject();
-
+//            Assign map to our new object
             booking = (List<String>) dataObject;
-
+//            Return the newly create Map object
             return booking;
 
-        } catch (IOException e) {
-            System.out.println("Can't fetch bookings from server.");
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             System.out.println("Can't fetch bookings from server.");
             e.printStackTrace();
         }
-
         return null;
     }
 }

@@ -21,6 +21,7 @@ public class PrimaryScene extends BaseScene {
         VBox centerVBox = sceneUtils.getCenterVBox(pane, 20, 400, 400);
         pane.setCenter(centerVBox);
 
+//        Button components for our main scene
         Button registerClientBtn = new Button("Register Client");
         registerClientBtn.getStyleClass().addAll("main-buttons");
         registerClientBtn.setPrefWidth(200);
@@ -49,6 +50,9 @@ public class PrimaryScene extends BaseScene {
         quitBtn.getStyleClass().add("main-buttons");
         quitBtn.setPrefWidth(200);
 
+        /*
+         * Action triggers for each button where it'll change to a new scene
+         */
         registerClientBtn.setOnAction(e -> {
             BaseScene clientRegisterScene = new RegisterClientScene("Gym Booking - Register Client");
 
@@ -95,7 +99,9 @@ public class PrimaryScene extends BaseScene {
 
         quitBtn.setOnAction(e -> {
             try {
+//                Close our socket
                 Main.socket.close();
+//                Exit the application
                 System.exit(0);
             } catch (IOException ex) {
                 System.err.println("Can't close socket connection.");
@@ -104,6 +110,6 @@ public class PrimaryScene extends BaseScene {
         });
 
         centerVBox.setAlignment(Pos.CENTER);
-        centerVBox.getChildren().addAll(registerClientBtn, updateClientBtn, bookingsBtn, addBookingBtn, updateBookingBtn, searchBookingBtn, quitBtn);
+        centerVBox.getChildren().addAll(registerClientBtn, updateClientBtn, bookingsBtn, searchBookingBtn, addBookingBtn, updateBookingBtn, quitBtn);
     }
 }
